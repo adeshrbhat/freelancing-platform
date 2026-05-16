@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GigBridge — Freelance Platform</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+:root{
+  --bg:#090b12;
+  --card:#141824;
+  --card2:#1b2130;
+  --border:rgba(255,255,255,0.08);
+  --accent:#6c63ff;
+  --green:#42d392;
+  --red:#ff6b6b;
+  --text:#f2f3f7;
+  --muted:#8f95aa;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 40px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(10px);
+  background:rgba(9,11,18,0.85);
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  font-family:'Syne',sans-serif;
+  font-size:26px;
+  font-weight:800;
+}
+
+.logo span{
+  color:var(--accent);
+}
+
+.tabs{
+  display:flex;
+  gap:10px;
+}
+
+.tab{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  padding:10px 18px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.tab.active{
+  background:var(--accent);
+  color:white;
+}
+
+.sdg{
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:12px;
+  background:rgba(66,211,146,0.1);
+  border:1px solid rgba(66,211,146,0.2);
+  color:var(--green);
+}
+
+/* HERO */
+
+.hero{
+  text-align:center;
+  padding:90px 20px 70px;
+
+  background:
+  radial-gradient(
+    ellipse at top,
+    rgba(108,99,255,0.16),
+    transparent 70%
+  );
+}
+
+.hero-badge{
+  display:inline-block;
+  padding:7px 16px;
+  border-radius:999px;
+  background:rgba(108,99,255,0.12);
+  border:1px solid rgba(108,99,255,0.2);
+  color:var(--accent);
+  margin-bottom:22px;
+  font-size:12px;
+}
+
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:64px;
+  line-height:1.05;
+  margin-bottom:18px;
+}
+
+.hero h1 span{
+  color:var(--accent);
+}
+
+.hero p{
+  max-width:700px;
+  margin:auto;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:17px;
+}
+
+.stats{
+  margin-top:40px;
+  display:flex;
+  justify-content:center;
+  gap:60px;
+}
+
+.stat-value{
+  font-family:'Syne',sans-serif;
+  font-size:32px;
+  font-weight:700;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+/* MAIN */
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+}
+
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.section-sub{
+  color:var(--muted);
+  margin-bottom:28px;
+  font-size:14px;
+}
+
+/* FILTERS */
+
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.filter-btn{
+  padding:10px 16px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+.filter-btn.active{
+  background:var(--accent);
+  color:white;
+}
+
+/* GRID */
+
+.jobs-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:20px;
+}
+
+.job-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:24px;
+  transition:0.2s;
+}
+
+.job-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(108,99,255,0.25);
+}
+
+.job-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.job-icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+}
+
+.Design{
+  background:rgba(108,99,255,0.12);
+}
+
+.Development{
+  background:rgba(66,211,146,0.12);
+}
+
+.Writing{
+  background:rgba(255,107,107,0.12);
+}
+
+.Marketing{
+  background:rgba(255,193,7,0.12);
+}
+
+.Other{
+  background:rgba(143,149,170,0.12);
+}
+
+.job-budget{
+  color:var(--green);
+  font-weight:700;
+}
+
+.job-title{
+  font-family:'Syne',sans-serif;
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.job-desc{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+  margin-bottom:18px;
+}
+
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.tag{
+  background:var(--card2);
+  border:1px solid var(--border);
+  padding:5px 10px;
+  border-radius:8px;
+  font-size:12px;
+}
+
+.job-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.poster{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.poster strong{
+  color:white;
+}
+
+.apply-btn{
+  border:none;
+  background:rgba(66,211,146,0.1);
+  color:var(--green);
+  border:1px solid rgba(66,211,146,0.2);
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* FORM */
+
+.form-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:30px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--card2);
+  color:white;
+  font-size:14px;
+}
+
+textarea{
+  min-height:120px;
+}
+
+.submit-btn{
+  margin-top:18px;
+  border:none;
+  background:var(--accent);
+  color:white;
+  padding:14px 24px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* MODAL */
+
+#modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.modal-box{
+  width:420px;
+  max-width:90%;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:30px;
+}
+
+.modal-box h2{
+  margin-bottom:20px;
+}
+
+.modal-actions{
+  margin-top:20px;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+.close-btn{
+  background:transparent;
+  border:1px solid var(--border);
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  background:var(--card2);
+  border:1px solid var(--border);
+  padding:16px 20px;
+  border-radius:14px;
+  display:none;
+  z-index:999;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  nav{
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .stats{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+  <div class="logo">
+    Gig<span>Bridge</span>
+  </div>
+
+  <div class="tabs">
+
+    <button class="tab active"
+    onclick="switchTab('browse', event)">
+      Browse Jobs
+    </button>
+
+    <button class="tab"
+    onclick="switchTab('post', event)">
+      Post a Job
+    </button>
+
+  </div>
+
+  <div class="sdg">
+    SDG 8 — Decent Work
+  </div>
+
+</nav>
+
+<section class="hero">
+
+  <div class="hero-badge">
+    AWS Serverless Freelance Platform
+  </div>
+
+  <h1>
+    Find gigs that<br>
+    <span>match your skills</span>
+  </h1>
+
+  <p>
+    A modern freelance platform powered by AWS API Gateway,
+    Lambda and DynamoDB helping freelancers discover
+    opportunities digitally.
+  </p>
+
+  <div class="stats">
+
+    <div>
+      <div class="stat-value" id="job-count">0</div>
+      <div class="stat-label">Jobs Available</div>
+    </div>
+
+    <div>
+      <div class="stat-value">Live</div>
+      <div class="stat-label">AWS Powered</div>
+    </div>
+
+    <div>
+      <div class="stat-value">Free</div>
+      <div class="stat-label">To Join</div>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="container">
+
+  <!-- BROWSE -->
+
+  <section id="browse-section">
+
+    <div class="section-title">
+      Available Gigs
+    </div>
+
+    <div class="section-sub">
+      Browse live freelance opportunities.
+    </div>
+
+    <div class="filters">
+
+      <button class="filter-btn active"
+      onclick="filterJobs('All', event)">
+        All
+      </button>
+
+      <button class="filter-btn"
+      onclick="filterJobs('Design', event)">
+        Design
+      </button>
+
+      <button class="filter-btn"
+      onclick="filterJobs('Development', event)">
+        Development
+      </button>
+
+      <button class="filter-btn"
+      onclick="filterJobs('Writing', event)">
+        Writing
+      </button>
+
+      <button class="filter-btn"
+      onclick="filterJobs('Marketing', event)">
+        Marketing
+      </button>
+
+    </div>
+
+    <div class="jobs-grid"
+    id="jobs-grid"></div>
+
+  </section>
+
+  <!-- POST -->
+
+  <section id="post-section"
+  style="display:none;">
+
+    <div class="section-title">
+      Post a New Job
+    </div>
+
+    <div class="section-sub">
+      Create freelance opportunities instantly.
+    </div>
+
+    <div class="form-card">
+
+      <div class="form-grid">
+
+        <div class="full">
+          <label>Job Title</label>
+          <input id="title">
+        </div>
+
+        <div class="full">
+          <label>Description</label>
+          <textarea id="description"></textarea>
+        </div>
+
+        <div>
+          <label>Budget</label>
+          <input id="budget">
+        </div>
+
+        <div>
+          <label>Category</label>
+
+          <select id="category">
+            <option>Design</option>
+            <option>Development</option>
+            <option>Writing</option>
+            <option>Marketing</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Your Name</label>
+          <input id="postedBy">
+        </div>
+
+        <div>
+          <label>Contact</label>
+          <input id="contact">
+        </div>
+
+      </div>
+
+      <button class="submit-btn"
+      onclick="postJob()">
+        Post Job →
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
+<!-- MODAL -->
+
+<div id="modal">
+
+  <div class="modal-box">
+
+    <h2>Apply to Job</h2>
+
+    <label>Your Name</label>
+    <input id="applicant">
+
+    <br><br>
+
+    <label>Skills / Message</label>
+    <textarea id="skills"></textarea>
+
+    <div class="modal-actions">
+
+      <button class="close-btn"
+      onclick="closeModal()">
+        Cancel
+      </button>
+
+      <button class="submit-btn"
+      onclick="submitApplication()">
+        Submit →
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+
+const API =
+'https://la8qcjcqrl.execute-api.ap-south-1.amazonaws.com/prod';
+
+let jobs = [];
+let currentFilter = 'All';
+let selectedJob = null;
+
+const icons = {
+  Design:'🎨',
+  Development:'💻',
+  Writing:'✍️',
+  Marketing:'📣',
+  Other:'💼'
+};
+
+function showToast(message){
+
+  const toast =
+  document.getElementById('toast');
+
+  toast.innerText = message;
+
+  toast.style.display = 'block';
+
+  setTimeout(()=>{
+    toast.style.display = 'none';
+  },3000);
+}
+
+function switchTab(tab,event){
+
+  document.querySelectorAll('.tab')
+  .forEach(t=>t.classList.remove('active'));
+
+  event.target.classList.add('active');
+
+  document.getElementById('browse-section')
+  .style.display =
+  tab === 'browse'
+  ? 'block'
+  : 'none';
+
+  document.getElementById('post-section')
+  .style.display =
+  tab === 'post'
+  ? 'block'
+  : 'none';
+}
+
+async function loadJobs(){
+
+  try{
+
+    const response =
+    await fetch(API + '/jobs');
+
+    const data =
+    await response.json();
+
+    console.log("API RESPONSE:", data);
+
+    if(data.body){
+
+      jobs = JSON.parse(data.body);
+
+    }else if(Array.isArray(data)){
+
+      jobs = data;
+
+    }else{
+
+      jobs = [];
+
+    }
+
+    renderJobs();
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast('Error loading jobs');
+
+  }
+}
+
+function renderJobs(){
+
+  const grid =
+  document.getElementById('jobs-grid');
+
+  const filtered =
+  currentFilter === 'All'
+  ? jobs
+  : jobs.filter(
+      job=>job.category===currentFilter
+    );
+
+  document.getElementById('job-count')
+  .innerText = filtered.length;
+
+  grid.innerHTML = '';
+
+  filtered.forEach(job=>{
+
+    const div =
+    document.createElement('div');
+
+    div.className = 'job-card';
+
+    div.innerHTML = `
+
+      <div class="job-top">
+
+        <div class="job-icon ${job.category}">
+          ${icons[job.category] || '💼'}
+        </div>
+
+        <div class="job-budget">
+          ₹${job.budget || '0'}
+        </div>
+
+      </div>
+
+      <div class="job-title">
+        ${job.title || 'Untitled'}
+      </div>
+
+      <div class="job-desc">
+        ${(job.description || '').slice(0,120)}
+      </div>
+
+      <div class="tags">
+        <div class="tag">
+          ${job.category || 'Other'}
+        </div>
+      </div>
+
+      <div class="job-footer">
+
+        <div class="poster">
+          by
+          <strong>
+            ${job.postedBy || 'Anonymous'}
+          </strong>
+        </div>
+
+        <button class="apply-btn"
+        onclick="openModal('${job.jobId}')">
+          Apply →
+        </button>
+
+      </div>
+
+    `;
+
+    grid.appendChild(div);
+
+  });
+
+}
+
+function filterJobs(category,event){
+
+  currentFilter = category;
+
+  document.querySelectorAll('.filter-btn')
+  .forEach(btn=>btn.classList.remove('active'));
+
+  event.target.classList.add('active');
+
+  renderJobs();
+}
+
+async function postJob(){
+
+  const payload = {
+
+    title:
+    document.getElementById('title').value,
+
+    description:
+    document.getElementById('description').value,
+
+    budget:
+    document.getElementById('budget').value,
+
+    category:
+    document.getElementById('category').value,
+
+    postedBy:
+    document.getElementById('postedBy').value,
+
+    contact:
+    document.getElementById('contact').value
+  };
+
+  try{
+
+    await fetch(API + '/jobs',{
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json'
+      },
+
+      body:JSON.stringify(payload)
+
+    });
+
+    showToast('Job posted successfully');
+
+    document.getElementById('title').value='';
+    document.getElementById('description').value='';
+    document.getElementById('budget').value='';
+    document.getElementById('postedBy').value='';
+    document.getElementById('contact').value='';
+
+    loadJobs();
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast('Error posting job');
+
+  }
+}
+
+function openModal(jobId){
+
+  selectedJob = jobId;
+
+  document.getElementById('modal')
+  .style.display = 'flex';
+}
+
+function closeModal(){
+
+  document.getElementById('modal')
+  .style.display = 'none';
+}
+
+async function submitApplication(){
+
+  const payload = {
+
+    jobId:selectedJob,
+
+    applicantName:
+    document.getElementById('applicant').value,
+
+    skills:
+    document.getElementById('skills').value
+  };
+
+  try{
+
+    await fetch(API + '/jobs/apply',{
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json'
+      },
+
+      body:JSON.stringify(payload)
+
+    });
+
+    showToast('Application submitted');
+
+    closeModal();
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast('Error submitting application');
+
+  }
+}
+
+loadJobs();
+
+setInterval(loadJobs,15000);
+
+</script>
+
+</body>
+</html>
